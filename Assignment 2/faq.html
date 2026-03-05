@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenLeaf — FAQ</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green: #2e7d52;
+      --green-light: #3a9b65;
+      --white: #ffffff;
+      --off-white: #f7f7f5;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --nav-h: 64px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    #nav-toggle {
+      display: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4%;
+      z-index: 100;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.4rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .nav-links a.active {
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--green);
+      margin-left: 1rem;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .hamburger-label {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger-label span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+
+    #nav-toggle:checked~nav .hamburger-label span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    #nav-toggle:checked~nav .hamburger-label span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #nav-toggle:checked~nav .hamburger-label span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 5%;
+      z-index: 99;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .mobile-menu a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--green);
+    }
+
+    #nav-toggle:checked~.mobile-menu {
+      display: flex;
+    }
+
+    main {
+      padding-top: var(--nav-h);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--off-white);
+    }
+
+    .page-inner {
+      width: 100%;
+      max-width: 680px;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .page-sub {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .faq-list {
+      text-align: left;
+    }
+
+    details {
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 0;
+    }
+
+    details:first-of-type {
+      border-top: 1px solid var(--border);
+      border-radius: 8px 8px 0 0;
+    }
+
+    details:last-of-type {
+      border-radius: 0 0 8px 8px;
+    }
+
+    summary {
+      list-style: none;
+      padding: 1.1rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      background: var(--white);
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: '▼';
+      font-size: 0.7rem;
+      color: var(--muted);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+
+    details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    details[open] summary {
+      color: var(--green);
+    }
+
+    .faq-answer {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.75;
+      padding: 0 1.25rem 1.1rem;
+      background: var(--white);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger-label {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <input type="checkbox" id="nav-toggle" />
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="faq.html" class="active">FAQ</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <label class="hamburger-label" for="nav-toggle"><span></span><span></span><span></span></label>
+    <a href="index.html" class="logo">GreenLeaf</a>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="blog.html">Blog</a>
+    <a href="login.html">Login</a>
+    <a href="contact.html">Contact Us</a>
+  </div>
+  <main>
+    <div class="page-inner">
+      <p class="label">FAQ</p>
+      <h1 class="page-title">Frequently Asked Questions</h1>
+      <p class="page-sub">Sample placeholder questions and answers. Replace with your own real content.</p>
+      <div class="faq-list">
+        <details>
+          <summary>What is this website?</summary>
+          <p class="faq-answer">This is a sample placeholder website built to demonstrate a clean, minimal layout.
+            Replace this answer with your real content.</p>
+        </details>
+        <details>
+          <summary>How do I get started?</summary>
+          <p class="faq-answer">This is a placeholder answer. Describe your onboarding process or getting-started steps
+            here when you're ready to go live.</p>
+        </details>
+        <details>
+          <summary>Is there a free trial?</summary>
+          <p class="faq-answer">Placeholder answer about your trial or free tier. Add the real details of any trial
+            period you offer here.</p>
+        </details>
+        <details>
+          <summary>How can I contact support?</summary>
+          <p class="faq-answer">Placeholder support answer. Direct users to your contact form, email address, or help
+            centre link here.</p>
+        </details>
+        <details>
+          <summary>Can I cancel my plan at any time?</summary>
+          <p class="faq-answer">Placeholder cancellation policy. Explain your cancellation and refund terms clearly
+            here.</p>
+        </details>
+        <details>
+          <summary>Do you offer custom plans?</summary>
+          <p class="faq-answer">Placeholder answer about custom plans. Let users know how to reach you if they need
+            something tailored.</p>
+        </details>
+      </div>
+    </div>
+  </main>
+  <footer>© 2026 GreenLeaf — Sample Site</footer>
+</body>
+
+</html>

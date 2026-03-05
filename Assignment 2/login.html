@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenLeaf — Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green: #2e7d52;
+      --green-light: #3a9b65;
+      --white: #ffffff;
+      --off-white: #f7f7f5;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --nav-h: 64px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    #nav-toggle {
+      display: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4%;
+      z-index: 100;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.4rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .nav-links a.active {
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--green);
+      margin-left: 1rem;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .hamburger-label {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger-label span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+
+    #nav-toggle:checked~nav .hamburger-label span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    #nav-toggle:checked~nav .hamburger-label span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #nav-toggle:checked~nav .hamburger-label span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 5%;
+      z-index: 99;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .mobile-menu a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--green);
+    }
+
+    #nav-toggle:checked~.mobile-menu {
+      display: flex;
+    }
+
+    main {
+      padding-top: var(--nav-h);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--off-white);
+    }
+
+    .page-inner {
+      width: 100%;
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .card-sub {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .field {
+      margin-bottom: 1.1rem;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.02em;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 0.65rem 0.875rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--off-white);
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text);
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: var(--green);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover {
+      background: var(--green-light);
+    }
+
+    .card-footer {
+      margin-top: 1.25rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .card-footer a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger-label {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <input type="checkbox" id="nav-toggle" />
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="login.html" class="active">Login</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <label class="hamburger-label" for="nav-toggle"><span></span><span></span><span></span></label>
+    <a href="index.html" class="logo">GreenLeaf</a>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="blog.html">Blog</a>
+    <a href="login.html">Login</a>
+    <a href="contact.html">Contact Us</a>
+  </div>
+  <main>
+    <div class="page-inner">
+      <p class="label">Account</p>
+      <h1 class="page-title">Sign In</h1>
+      <div class="card">
+        <p class="card-sub">Enter your credentials to continue.</p>
+        <div class="field">
+          <label for="loginUser">Username</label>
+          <input type="text" id="loginUser" placeholder="your username" />
+        </div>
+        <div class="field">
+          <label for="loginPass">Password</label>
+          <input type="password" id="loginPass" placeholder="••••••••" />
+        </div>
+        <button class="submit-btn">Log In</button>
+        <p class="card-footer">Don't have an account? <a href="contact.html">Contact us</a></p>
+      </div>
+    </div>
+  </main>
+  <footer>© 2026 GreenLeaf — Sample Site</footer>
+</body>
+
+</html>
